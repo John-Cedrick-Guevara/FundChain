@@ -1,4 +1,5 @@
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../ui/skeleton";
+
 
 export function StatCardSkeleton({ quantity }: { quantity: number }) {
   return (

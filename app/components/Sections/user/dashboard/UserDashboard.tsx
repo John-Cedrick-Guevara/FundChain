@@ -1,15 +1,17 @@
 "use client"
 import { DashboardData } from "@/lib/supabase/queries/userDashBoard";
 import React from "react";
-import UserStatCard from "../../Cards/UserStatCard";
+
 import {
   ChartBarIcon,
   DollarSignIcon,
   FileSliders,
+  Heart,
   PackageIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/Context/AuthContext";
+import UserStatCard from "@/app/components/Cards/UserStatCard";
 
 const UserDashboard = ({ stats }: { stats: DashboardData }) => {
   const user = useAuth();
@@ -36,8 +38,8 @@ const UserDashboard = ({ stats }: { stats: DashboardData }) => {
         <UserStatCard
           icon={PackageIcon}
           title={"Projects Funded"}
-          color={"text-indigo-600"}
-          bgColor={"bg-indigo-100"}
+          color={"text-blue-600"}
+          bgColor={"bg-blue-100"}
           value={stats.projectsFunded}
           trend={"Total projects"}
           index={0}
@@ -56,10 +58,10 @@ const UserDashboard = ({ stats }: { stats: DashboardData }) => {
 
         {/* Total Votes Cast */}
         <UserStatCard
-          icon={ChartBarIcon}
+          icon={Heart}
           title={"Total Votes Cast"}
-          color={"text-amber-600"}
-          bgColor={"bg-amber-100"}
+          color={"text-red-600"}
+          bgColor={"bg-red-100"}
           value={stats.totalVotesCast}
           trend={"Total votes cast"}
           index={2}
@@ -69,8 +71,8 @@ const UserDashboard = ({ stats }: { stats: DashboardData }) => {
         <UserStatCard
           icon={FileSliders}
           title={"Active Voted Projects"}
-          color={"text-red-600"}
-          bgColor={"bg-red-100"}
+          color={"text-violet-600"}
+          bgColor={"bg-violet-100"}
           value={stats.ActiveVotedProject}
           trend={"Total active voted projects"}
           index={3}

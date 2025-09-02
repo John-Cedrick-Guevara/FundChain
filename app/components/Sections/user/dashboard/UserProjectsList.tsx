@@ -39,7 +39,7 @@ import {
 } from "@/lib/data";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+
 import {
   Select,
   SelectContent,
@@ -47,8 +47,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "../../ui/badge";
-import UserProjectCard from "../../Cards/UserProjectCard";
+import UserProjectCard from "@/app/components/Cards/UserProjectCard";
+
 
 interface Props {
   projects: Promise<Projects[]>;

@@ -1,11 +1,12 @@
 import AdminDashBoardList from "@/app/components/Sections/admin/AdminDashBoardList";
-import { StatCardSkeleton } from "@/app/components/Skeletons/StatCardSkeleton";
+import AdminDashBoardListSkeleton from "@/app/components/Skeletons/admin/AdminDashboardSkeleton";
+
 import React, { Suspense } from "react";
 
 const page = () => {
   return (
     <main className="text-white p-8">
-      <Suspense fallback={<StatCardSkeleton quantity={4} />}>
+      <Suspense fallback={<AdminDashBoardListSkeleton />}>
         <AdminDashBoardList />
       </Suspense>
     </main>
