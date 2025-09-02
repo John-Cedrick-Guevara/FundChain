@@ -17,6 +17,8 @@ html {
 @theme inline {
   --color-background: var(--background);
   --color-neon-purple: var(--neon-purple);
+  --color-surface: var(--dark-surface);
+  --color-neon-cyan: var(--neon-cyan);
   --color-foreground: var(--foreground);
   --color-dark-violet: var(--dark-violet);
   --color-grayish-blue: var(--grayish-blue);
@@ -213,7 +215,7 @@ html {
 }
 
 @layer utilities {
-   .text-gradient {
+  .text-gradient {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -239,9 +241,7 @@ html {
     box-shadow: 0 10px 30px -5px var(--background) / 0.3, var(--glow-primary);
   }
 
-  .surface {
-    background: var(--dark-surface);
-  }
+
 }
 
 @keyframes float {

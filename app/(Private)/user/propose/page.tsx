@@ -9,25 +9,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
-import { Progress } from "@/app/components/ui/progress";
-import { Textarea } from "@/app/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { mockSectors } from "@/lib/data";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
-import { motion, progress } from "framer-motion";
+import { Progress } from "@/app/components/ui/progress";
+
+
+import { motion } from "framer-motion";
 import {
   CheckCircle,
   DollarSign,
-  FileText,
+
   Lightbulb,
   Target,
   Users,

@@ -1,8 +1,9 @@
+import { Button } from "@/app/components/ui/button";
+import { TableRow, TableCell } from "@/app/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import {  Edit, Trash2 } from "lucide-react";
 import React from "react";
-import { Button } from "../../ui/button";
-import { TableRow, TableCell } from "../../ui/table";
-import { Badge } from "../../ui/badge";
+
 
 interface SectorRowProps {
 name: string

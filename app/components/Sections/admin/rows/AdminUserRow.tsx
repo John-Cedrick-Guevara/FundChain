@@ -1,9 +1,9 @@
 import React from "react";
-import { TableCell, TableRow } from "../../ui/table";
+import { TableCell, TableRow } from "../../../ui/table";
 import { formatDate } from "@/lib/data";
 import { Edit, UserX, UserCheck } from "lucide-react";
-import { Button } from "../../ui/button";
-import { Badge } from "../../ui/badge";
+import { Button } from "../../../ui/button";
+import { Badge } from "../../../ui/badge";
 
 interface UserRowProps {
   name: string;

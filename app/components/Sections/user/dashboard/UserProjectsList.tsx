@@ -1,45 +1,15 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import { Button } from "@/app/components/ui/button";
-import { Progress } from "@/app/components/ui/progress";
-import { fetcher, projectFetcher } from "@/lib/db/supabaseFetcher";
-import { DropDownProps, Projects, SectorProps } from "@/lib/interfaces";
-import {
-  Calendar,
-  DollarSign,
-  Filter,
-  Heart,
-  Search,
-  TrendingUp,
-  Users,
-  Vote,
-} from "lucide-react";
+import { projectFetcher } from "@/lib/db/supabaseFetcher";
+import { Projects } from "@/lib/interfaces";
+import { Filter, Search, TrendingUp } from "lucide-react";
 import useSWR from "swr";
-
-import { Label } from "@/app/components/ui/label";
 import { Input } from "@/app/components/ui/input";
-import { Textarea } from "@/app/components/ui/textarea";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-} from "@radix-ui/react-dropdown-menu";
-import { supabase } from "@/lib/supabase/supabaseClient";
 import { useAuth } from "@/lib/Context/AuthContext";
-import { toast } from "sonner";
-import {
-  calculateFundingProgress,
-  formatCurrency,
-  formatDate,
-  getSectorById,
-} from "@/lib/data";
+import { calculateFundingProgress } from "@/lib/data";
 import { motion } from "framer-motion";
 import Link from "next/link";
-
 import {
   Select,
   SelectContent,
@@ -50,15 +20,10 @@ import {
 import UserProjectCard from "@/app/components/Cards/UserProjectCard";
 
 
-interface Props {
-  projects: Promise<Projects[]>;
-}
-
 const UserProjectsList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("newest");
-  const user = useAuth();
 
   // fetcher
   const {
@@ -141,7 +106,7 @@ const UserProjectsList = () => {
             </div>
 
             <Select value={selectedSector} onValueChange={setSelectedSector}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <Filter className="h-4 w-4 mr-2" />
                 <SelectValue placeholder="All Sectors" />
               </SelectTrigger>
@@ -156,7 +121,7 @@ const UserProjectsList = () => {
             </Select>
 
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <TrendingUp className="h-4 w-4 mr-2" />
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -168,7 +133,7 @@ const UserProjectsList = () => {
             </Select>
 
             <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>{sortedProjects.length} projects found</span>
+              <span>{sortedProjects.length || 0} projects found</span>
             </div>
           </div>
         </motion.div>

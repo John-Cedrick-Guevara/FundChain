@@ -1,4 +1,4 @@
-import AdminDashBoardList from "@/app/components/Sections/admin/AdminDashBoardList";
+import AdminDashBoardList from "@/app/components/Sections/admin/rows/AdminDashBoardList";
 import AdminDashBoardListSkeleton from "@/app/components/Skeletons/admin/AdminDashboardSkeleton";
 
 import React, { Suspense } from "react";

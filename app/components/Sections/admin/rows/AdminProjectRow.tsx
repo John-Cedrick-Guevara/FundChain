@@ -1,9 +1,9 @@
-import { formatCurrency, formatDate } from "@/lib/data";
+import { Button } from "@/app/components/ui/button";
+import { TableRow, TableCell } from "@/app/components/ui/table";
+import { Badge } from "@/components/ui/badge";
 import { Eye, Check, X } from "lucide-react";
 import React from "react";
-import { Button } from "../../ui/button";
-import { TableRow, TableCell } from "../../ui/table";
-import { Badge } from "../../ui/badge";
+
 
 interface AdminProjectRow {
   status: string;
