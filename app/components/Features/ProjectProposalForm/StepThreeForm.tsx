@@ -1,16 +1,18 @@
-import { ProjectForm } from "@/app/(Private)/user/propose/page";
-import { mockSectors } from "@/lib/data";
+
 import React from "react";
 import { FileText } from "lucide-react";
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
 import { Separator } from "../../ui/separator";
-
+import { ProjectForm } from "./ProposalForm";
+import { Sector } from "@/lib/interfaces";
 
 const StepThreeForm = ({
+  sectors,
   formData,
   handleInputChange,
 }: {
+  sectors: Sector[];
   formData: ProjectForm;
   handleInputChange: (field: keyof ProjectForm, value: string) => void;
 }) => {
@@ -23,7 +25,9 @@ const StepThreeForm = ({
           placeholder="What do you expect to achieve with this funding? What are your key milestones?"
           rows={4}
           value={formData.expectedOutcome}
-          onChange={(e: { target: { value: string; }; }) => handleInputChange("expectedOutcome", e.target.value)}
+          onChange={(e: { target: { value: string } }) =>
+            handleInputChange("expectedOutcome", e.target.value)
+          }
         />
       </div>
 
@@ -34,7 +38,9 @@ const StepThreeForm = ({
           placeholder="What are the main risks for your project and how do you plan to address them?"
           rows={4}
           value={formData.risks}
-          onChange={(e: { target: { value: string; }; }) => handleInputChange("risks", e.target.value)}
+          onChange={(e: { target: { value: string } }) =>
+            handleInputChange("risks", e.target.value)
+          }
         />
       </div>
 
@@ -51,7 +57,7 @@ const StepThreeForm = ({
             </p>
             <p>
               <strong>Sector:</strong>{" "}
-              {mockSectors.find((s) => s.id === formData.sectorId)?.name ||
+              {sectors.find((s) => s.id === formData.sectorId)?.name ||
                 "Not specified"}
             </p>
             <p>

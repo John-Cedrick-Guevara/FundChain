@@ -1,4 +1,3 @@
-import { ProjectForm } from "@/app/(Private)/user/propose/page";
 import { mockSectors } from "@/lib/data";
 import React from "react";
 import {
@@ -11,11 +10,15 @@ import {
 import { Input } from "../../ui/input";
 import { Textarea } from "../../ui/textarea";
 import { Label } from "../../ui/label";
+import { ProjectForm } from "./ProposalForm";
+import { Sector } from "@/lib/interfaces";
 
 const StepOneForm = ({
+  sectors,
   formData,
   handleInputChange,
 }: {
+  sectors: Sector[];
   formData: ProjectForm;
   handleInputChange: (field: keyof ProjectForm, value: string) => void;
 }) => {
@@ -25,6 +28,7 @@ const StepOneForm = ({
         <Label htmlFor="name">Project Name *</Label>
         <Input
           id="name"
+          name="name"
           placeholder="Enter your project name"
           value={formData.name}
           onChange={(e: { target: { value: any } }) =>
@@ -56,7 +60,7 @@ const StepOneForm = ({
             <SelectValue placeholder="Select a sector" />
           </SelectTrigger>
           <SelectContent>
-            {mockSectors.map((sector: { id: any; name: any }) => (
+            {sectors.map((sector: { id: any; name: any }) => (
               <SelectItem key={sector.id} value={sector.id}>
                 {sector.name}
               </SelectItem>

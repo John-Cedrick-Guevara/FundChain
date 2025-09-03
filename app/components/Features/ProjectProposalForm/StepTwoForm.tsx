@@ -1,5 +1,4 @@
-import { ProjectForm } from "@/app/(Private)/user/propose/page";
-import { mockSectors } from "@/lib/data";
+
 
 import React from "react";
 
@@ -12,18 +11,21 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
+import { ProjectForm } from "./ProposalForm";
+import { Sector } from "@/lib/interfaces";
 
 const StepTwoForm = ({
   formData,
   handleInputChange,
 }: {
+ 
   formData: ProjectForm;
   handleInputChange: (field: keyof ProjectForm, value: string) => void;
 }) => {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="amount">Requested Funding Amount (USD) *</Label>
+        <Label htmlFor="amount">Requested Funding Amount (PHP) *</Label>
         <Input
           id="amount"
           type="number"
