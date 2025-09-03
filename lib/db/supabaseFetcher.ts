@@ -1,4 +1,6 @@
+import { SectorReturn } from "../interfaces";
 import { createBrowserClientSupabase } from "../supabase/supabaseBrowser";
+import { createClient } from "../supabase/supabaseServer";
 
 const supabase = createBrowserClientSupabase();
 
@@ -13,11 +15,10 @@ export const fetcher = async (table: string) => {
 
 // Project sector
 export const projectFetcher = async (table: string) => {
-  const { data, error } = await supabase.from(table).select(`*,
-        sector(id, name),
+  const { data, error } = await supabase.from("Projects")
+    .select(`*,     sector(id, name),
         userId(id, name),
-        Votes!projectId(id, userId)
-    `);
+        votes:Votes!projectId(id, userId), funds:Funds(id, amount)`);
 
   if (error) throw error;
 
@@ -48,3 +49,19 @@ export const adminSectorFetcher = async () => {
 
   return users;
 };
+
+// users fetcher for sectors
+export async function sectorFetcher(): Promise<SectorReturn[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("Sectors")
+    .select(
+      "id, name, description, projects:Projects(id, name, targetFunds),votes:Votes(id), funds:Funds(id,amount,projectId) "
+    );
+
+  if (error) {
+    console.error("Error fetching projects:", error);
+  }
+
+  return data ?? [];
+}

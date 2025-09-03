@@ -1,7 +1,8 @@
 "use client";
-import StepOneForm from "@/app/components/ProjectProposalForm/StepOneForm";
-import StepThreeForm from "@/app/components/ProjectProposalForm/StepThreeForm";
-import StepTwoForm from "@/app/components/ProjectProposalForm/StepTwoForm";
+
+import StepOneForm from "@/app/components/Features/ProjectProposalForm/StepOneForm";
+import StepThreeForm from "@/app/components/Features/ProjectProposalForm/StepThreeForm";
+import StepTwoForm from "@/app/components/Features/ProjectProposalForm/StepTwoForm";
 import { Button } from "@/app/components/ui/button";
 import {
   Card,
@@ -12,12 +13,10 @@ import {
 
 import { Progress } from "@/app/components/ui/progress";
 
-
 import { motion } from "framer-motion";
 import {
   CheckCircle,
   DollarSign,
-
   Lightbulb,
   Target,
   Users,

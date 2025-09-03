@@ -12,7 +12,6 @@ export async function handleSignUp(currentState: unknown, formData: FormData) {
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
 
-    console.log(password, confirmPassword);
     // checks password
     if (password !== confirmPassword) {
       return { message: "Password Mismatch", success: false };
@@ -96,9 +95,6 @@ export async function handleSignIn(currentState: unknown, formData: FormData) {
 
   return { success: true, role: userRole };
 }
-
-
-
 
 export async function handleSignOut() {
   const supabase = await createBrowserClientSupabase();

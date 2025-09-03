@@ -2,13 +2,26 @@ import { motion } from "framer-motion";
 import { TrendingUp, ArrowRight } from "lucide-react";
 import React from "react";
 
-import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { Progress } from "../ui/progress";
-import { Badge } from "../ui/badge";
 import Link from "next/link";
+import { Badge } from "../../ui/badge";
+import { Button } from "../../ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
+import { Progress } from "../../ui/progress";
+import { SectorReturn } from "@/lib/interfaces";
+import { getTotalFunds } from "@/lib/helperFunctions";
 
-const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
+const UserSectorCard = ({
+  sector,
+  index,
+}: {
+  sector: SectorReturn;
+  index: number;
+}) => {
+  const totalFunds = getTotalFunds(sector.funds) || 0;
+  const sectorTargetFunds =
+    sector.projects.reduce((sum, project) => (sum += project.targetFunds), 0) ||
+    0;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -20,7 +33,7 @@ const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
           <div className="flex items-center justify-between">
             <CardTitle className="text-xl mb-2">{sector.name}</CardTitle>
             <Badge variant="secondary" className="text-xs">
-              {sector.projectCount} projects
+              {sector.projects.length} projects
             </Badge>
           </div>
           <div>
@@ -37,7 +50,7 @@ const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
               <span className="text-sm text-muted-foreground">
                 Total Funding
               </span>
-              <span className="font-semibold">{sector.Funds || 0}</span>
+              <span className="font-semibold">{totalFunds || 0}</span>
             </div>
 
             <div className="flex justify-between items-center">
@@ -48,10 +61,13 @@ const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
             </div>
 
             <div className="flex justify-between items-center">
-              <span className="text-sm text-muted-foreground">Growth Rate</span>
+              <span className="text-sm text-muted-foreground">
+                Funding percentage
+              </span>
               <div className="flex items-center space-x-1">
-                <TrendingUp className="w-3 h-3 text-green-500" />
-                <span className="font-semibold text-green-500">+{21345}%</span>
+                <span className="font-semibold text-green-500">
+                  {((totalFunds / sectorTargetFunds) * 100).toFixed(2) || 0}%
+                </span>
               </div>
             </div>
           </div>
@@ -61,11 +77,11 @@ const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Sector Activity</span>
               <span className="font-medium">
-                {Math.round((sector.projectCount / 20) * 100)}%
+                {Math.round((sector.projects.length / 10) * 100)}%
               </span>
             </div>
             <Progress
-              value={(sector.projectCount / 20) * 100}
+              value={(sector.projects.length / 10) * 100}
               className="h-2"
             />
           </div>
@@ -86,7 +102,6 @@ const UserSectorCard = ({ sector, index }: { sector: any; index: number }) => {
           {/* Recent Activity */}
           <div className="pt-2 border-t border-border/50">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>Last activity: 2 hours ago</span>
               <div className="flex items-center space-x-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span>Active</span>

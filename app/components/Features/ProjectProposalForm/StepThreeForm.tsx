@@ -1,19 +1,11 @@
 import { ProjectForm } from "@/app/(Private)/user/propose/page";
 import { mockSectors } from "@/lib/data";
-
 import React from "react";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { FileText } from "lucide-react";
-import { Separator } from "../ui/separator";
+import { Label } from "../../ui/label";
+import { Textarea } from "../../ui/textarea";
+import { Separator } from "../../ui/separator";
+
 
 const StepThreeForm = ({
   formData,
@@ -31,7 +23,7 @@ const StepThreeForm = ({
           placeholder="What do you expect to achieve with this funding? What are your key milestones?"
           rows={4}
           value={formData.expectedOutcome}
-          onChange={(e) => handleInputChange("expectedOutcome", e.target.value)}
+          onChange={(e: { target: { value: string; }; }) => handleInputChange("expectedOutcome", e.target.value)}
         />
       </div>
 
@@ -42,7 +34,7 @@ const StepThreeForm = ({
           placeholder="What are the main risks for your project and how do you plan to address them?"
           rows={4}
           value={formData.risks}
-          onChange={(e) => handleInputChange("risks", e.target.value)}
+          onChange={(e: { target: { value: string; }; }) => handleInputChange("risks", e.target.value)}
         />
       </div>
 

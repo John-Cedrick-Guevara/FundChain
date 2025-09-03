@@ -4,19 +4,25 @@ import { Button } from "@/app/components/ui/button";
 import { Progress } from "@/app/components/ui/progress";
 
 import { Calendar, DollarSign, Heart, Users, Vote } from "lucide-react";
-import { formatCurrency, formatDate } from "@/lib/data";
+import { formatDate } from "@/lib/data";
 import { motion } from "framer-motion";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "../../ui/card";
+import { Project } from "@/lib/interfaces";
+import { getTotalFunds } from "@/lib/helperFunctions";
 
 const UserProjectCard = ({
   project,
   index,
 }: {
-  project: any;
+  project: Project;
   index: number;
 }) => {
+  console.log(project);
+
+  const totalFunds = getTotalFunds(project.funds);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -48,13 +54,13 @@ const UserProjectCard = ({
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Funding Progress</span>
               <span className="font-medium">
-                {(project.funds / project.targetFunds) * 100}%
+                {((totalFunds / project.targetFunds) * 100).toFixed(2)}%
               </span>
             </div>
             <Progress value={(4 / project.targetFunds) * 100} className="h-2" />
             <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{formatCurrency(project.funds)} raised</span>
-              <span>{formatCurrency(project.targetFunds)} goal</span>
+              <span>P{totalFunds || 0} raised</span>
+              <span>P{project.targetFunds.toLocaleString()} goal</span>
             </div>
           </div>
 
@@ -63,23 +69,27 @@ const UserProjectCard = ({
             <div className="text-center">
               <div className="flex items-center justify-center space-x-1">
                 <Vote className="h-3 w-3 text-primary" />
-                <span className="text-sm font-medium">{project.Votes.length}</span>
+                <span className="text-sm font-medium">
+                  {project.votes.length || 0}
+                </span>
               </div>
               <span className="text-xs text-muted-foreground">Votes</span>
             </div>
+            {/* remaining days */}
             <div className="text-center">
               <div className="flex items-center justify-center space-x-1">
                 <Calendar className="h-3 w-3 text-primary" />
                 <span className="text-sm font-medium">
-                  {Math.ceil(
+                  {/* {Math.ceil(
                     (new Date(project.fundingDeadline).getTime() - Date.now()) /
                       (1000 * 60 * 60 * 24)
-                  )}
+                  )} */}
                   d
                 </span>
               </div>
               <span className="text-xs text-muted-foreground">Left</span>
             </div>
+            {/* backers */}
             <div className="text-center">
               <div className="flex items-center justify-center space-x-1">
                 <Users className="h-3 w-3 text-primary" />

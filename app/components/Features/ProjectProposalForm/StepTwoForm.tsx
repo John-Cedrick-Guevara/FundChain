@@ -2,9 +2,7 @@ import { ProjectForm } from "@/app/(Private)/user/propose/page";
 import { mockSectors } from "@/lib/data";
 
 import React from "react";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { Label } from "../ui/label";
+
 import {
   Select,
   SelectContent,
@@ -12,6 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
 
 const StepTwoForm = ({
   formData,

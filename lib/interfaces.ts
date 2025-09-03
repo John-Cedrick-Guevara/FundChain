@@ -6,27 +6,41 @@ export interface GetIndicatorStyle {
   name?: string;
 }
 
-export interface Projects {
+export interface Sector {
+  id: string;
   name: string;
-  description: string;
-  funds: string;
-  sector: string;
-  targetFunds: number;
-  status: "Approved" | "Pending" | "Rejected";
-  currentFunds: number;
-  votes: [];
-  created_at:Date
 }
 
-export interface SectorProps {
-  created_at?: string;
-  id?: string;
+// A vote record (expand with more fields if needed later)
+export interface Votes {
+  id: string;
+  userId: string;
+}
+export interface Funds {
+  id: string;
+  amount: number;
+}
 
-  Projects: { name: string }[];
-  Votes: { id: string }[];
+export interface Project {
+  votes: Votes[]; // exact: capital V
+  created_at: string; // exact: underscore
   description: string;
-  funds: null;
+  funds: Funds[];
+  id: string;
   name: string;
+  sector: Sector;
+  status: string; // kept generic to avoid mismatch
+  targetFunds: number; // exact: camelCase with F
+  userId: User; // exact: key name, value is an object
+}
+
+export interface SectorReturn {
+  id: string;
+  description: string;
+  name: string;
+  funds: Funds[];
+  projects: { id: string; name: string, targetFunds: number }[];
+  votes: {id: string}[];
 }
 
 export interface DropDownProps {
@@ -35,6 +49,7 @@ export interface DropDownProps {
 }
 
 export interface User {
+  name: string;
   id: string;
   email: string;
   role: "admin" | "user";

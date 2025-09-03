@@ -1,12 +1,10 @@
 "use client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/app/components/ui/button";
 import { projectFetcher } from "@/lib/db/supabaseFetcher";
-import { Projects } from "@/lib/interfaces";
 import { Filter, Search, TrendingUp } from "lucide-react";
 import useSWR from "swr";
 import { Input } from "@/app/components/ui/input";
-import { useAuth } from "@/lib/Context/AuthContext";
 import { calculateFundingProgress } from "@/lib/data";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -17,49 +15,46 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import UserProjectCard from "@/app/components/Cards/UserProjectCard";
+import UserProjectCard from "@/app/components/Common/Cards/UserProjectCard";
+import { Project } from "@/lib/interfaces";
 
-
-const UserProjectsList = () => {
+const UserProjectsList = ({ fallbackData }: { fallbackData: Project[] }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("newest");
 
   // fetcher
   const {
-    data: allProjects = [null],
+    data: allProjects,
     error,
     mutate,
-  } = useSWR("Projects", projectFetcher, { suspense: true });
+  } = useSWR<Project[]>("Projects", projectFetcher, {
+    suspense: true,
+    fallbackData,
+  });
 
-  const filteredProjects = allProjects.filter(
-    (project: {
-      name: string;
-      description: string;
-      sector: { name: string };
-    }) => {
-      const matchesSearch =
-        project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesSector =
-        selectedSector === "all" || project.sector.name === selectedSector;
-      return matchesSearch && matchesSector;
-    }
-  );
+  const filteredProjects = (allProjects ?? []).filter((project) => {
+    const matchesSearch =
+      project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSector =
+      selectedSector === "all" || project.sector.name === selectedSector;
+    return matchesSearch && matchesSector;
+  });
 
   const sortedProjects = [...filteredProjects].sort((a, b) => {
     switch (sortBy) {
       case "newest":
         return (
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
       case "funding":
         return (
-          calculateFundingProgress(b.raisedAmount, b.requestedAmount) -
-          calculateFundingProgress(a.raisedAmount, a.requestedAmount)
+          calculateFundingProgress(b.funds, b.targetFunds) -
+          calculateFundingProgress(a.funds, a.targetFunds)
         );
       case "votes":
-        return b.votes - a.votes;
+        return b.votes.length - a.votes.length;
       default:
         return 0;
     }
@@ -67,7 +62,7 @@ const UserProjectsList = () => {
 
   const sectors: string[] =
     Array.from(
-      new Set(allProjects.map((p: { sector: { name: any } }) => p.sector.name))
+      new Set(allProjects?.map((p: { sector: { name: any } }) => p.sector.name))
     ) || null;
 
   return (

@@ -1,3 +1,6 @@
+import { getTotalFunds } from "./helperFunctions";
+import { Funds } from "./interfaces";
+
 export interface User {
   id: string;
   name: string;
@@ -282,15 +285,6 @@ export const getPendingProjects = (): Project[] => {
   return mockProjects.filter((project) => project.status === "pending");
 };
 
-export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
 export const formatDate = (dateString: string): string => {
   return new Date(dateString).toLocaleDateString("en-US", {
     year: "numeric",
@@ -300,8 +294,10 @@ export const formatDate = (dateString: string): string => {
 };
 
 export const calculateFundingProgress = (
-  raised: number,
+  raised: Funds[],
   requested: number
 ): number => {
-  return Math.round((raised / requested) * 100);
+  const currentFunds = getTotalFunds(raised);
+
+  return Math.round((currentFunds / requested) * 100);
 };

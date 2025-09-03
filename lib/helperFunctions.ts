@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { GetIndicatorStyle } from "./interfaces";
+import { Funds, GetIndicatorStyle } from "./interfaces";
 import { supabase } from "./supabase/supabaseClient";
 import { createBrowserClientSupabase } from "./supabase/supabaseBrowser";
 
@@ -24,4 +24,6 @@ export function handleChange<T extends HTMLInputElement | HTMLTextAreaElement>(
   setter(value);
 }
 
-
+export function getTotalFunds(funds: Funds[]) {
+  return funds.reduce((total, fund) => total += fund.amount, 0)
+}

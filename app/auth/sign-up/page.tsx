@@ -27,7 +27,7 @@ const page = () => {
         description: state?.message as string,
       });
     }
-  }, [action]);
+  }, [state]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-hero">

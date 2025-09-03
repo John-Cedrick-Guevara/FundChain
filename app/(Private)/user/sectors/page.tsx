@@ -1,21 +1,16 @@
-import UserSectorList from "@/app/components/Sections/user/sectors/UserSectorList";
+import UserSectorList from "@/app/components/Features/user/sectors/UserSectorList";
 import UserSectorListSkeleton from "@/app/components/Skeletons/user/UserSectorListSkeleton";
+import { sectorFetcher } from "@/lib/db/supabaseFetcher";
 import { createClient } from "@/lib/supabase/supabaseServer";
 
 import React, { Suspense } from "react";
 
 const page = async () => {
-  const supabase = await createClient();
-  const secttorsData = await supabase
-    .from("Sectors")
-    .select("id, name, Projects(id, name), Votes(id), Funds(id,amount,projectId) ");
-
-  console.log("sector:", secttorsData.data);
+  const data = await sectorFetcher();
 
   return (
     <Suspense fallback={<UserSectorListSkeleton />}>
-      
-      <UserSectorList />
+      <UserSectorList fallbackData={data ?? []} />
     </Suspense>
   );
 };

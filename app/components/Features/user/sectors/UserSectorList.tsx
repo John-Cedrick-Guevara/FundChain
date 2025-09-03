@@ -1,17 +1,28 @@
 "use client";
 import { motion } from "framer-motion";
 
-import {
-  ArrowRight,
-
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { mockSectors } from "@/lib/data";
 import { Card, CardContent } from "@/app/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/button";
-import UserSectorCard from "@/app/components/Cards/UserSectorCard";
+import UserSectorCard from "@/app/components/Common/Cards/UserSectorCard";
+import { SectorReturn } from "@/lib/interfaces";
+import useSWR from "swr";
+import { fetcher, sectorFetcher } from "@/lib/db/supabaseFetcher";
 
-export const UserSectorList = () => {
+export const UserSectorList = ({
+  fallbackData,
+}: {
+  fallbackData: SectorReturn[];
+}) => {
+  const { data: sectors } = useSWR("Sectors", sectorFetcher, {
+    suspense: true,
+    fallbackData,
+  });
+
+  console.log(sectors);
+
   return (
     <div className="min-h-screen py-8">
       <div className="container mx-auto px-4 ">
@@ -33,7 +44,7 @@ export const UserSectorList = () => {
 
         {/* Sectors Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mockSectors.map((sector, index) => (
+          {sectors.map((sector, index) => (
             <UserSectorCard sector={sector} index={index} key={index} />
           ))}
         </div>

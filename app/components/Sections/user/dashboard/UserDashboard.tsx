@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/Context/AuthContext";
-import UserStatCard from "@/app/components/Cards/UserStatCard";
+import UserStatCard from "@/app/components/Common/Cards/UserStatCard";
+
 
 const UserDashboard = ({ stats }: { stats: DashboardData }) => {
   const user = useAuth();
